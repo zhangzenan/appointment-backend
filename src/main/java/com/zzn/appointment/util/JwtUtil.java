@@ -35,7 +35,7 @@ public class JwtUtil {
                 .compact();
     }
 
-    public String getPhoneFromToken(String token) {
+    public String getUserIdFromToken(String token) {
         Claims claims = Jwts.parser()
                 .verifyWith(getSigningKey())
                 .build()

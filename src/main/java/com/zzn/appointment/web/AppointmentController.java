@@ -36,9 +36,11 @@ public class AppointmentController {
      */
     @GetMapping("/list")
     public ApiResponse<List<Appointment>> list(
-            @RequestAttribute("userId") Long userId
+            @RequestAttribute("userId") Long userId,
+            @RequestParam(defaultValue = "1") Integer pageNum,
+            @RequestParam(defaultValue = "10") Integer pageSize
     ) {
-        List<Appointment> appointments = appointmentService.listAppointments(userId);
+        List<Appointment> appointments = appointmentService.listAppointments(userId, pageNum, pageSize);
 
         return ApiResponse.success(appointments);
     }

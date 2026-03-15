@@ -38,6 +38,14 @@ public interface AppointmentMapper {
     List<Appointment> findByUserId(Long userId);
 
     /**
+     * 根据用户 ID 查询预约列表（分页）
+     */
+    @Select("SELECT id, user_id, service_name, date, time_slot, created_at FROM appointments WHERE user_id = #{userId} ORDER BY created_at DESC LIMIT #{offset}, #{limit}")
+    @ResultMap("appointmentResultMap")
+    List<Appointment> findByUserIdWithPage(Long userId, Integer offset, Integer limit);
+
+
+    /**
      * 根据用户 ID、日期和时间段查询预约
      */
     @Select("SELECT id, user_id, service_name, date, time_slot, created_at FROM appointments " +

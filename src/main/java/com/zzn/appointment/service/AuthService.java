@@ -35,7 +35,13 @@ public class AuthService {
     }
 
     public Long parseToken(String token) {
-        String userId = jwtUtil.getPhoneFromToken(token);
+        if (!jwtUtil.validateToken(token)) {
+            throw new BusinessException("Token 无效");
+        }
+        if (jwtUtil.isTokenExpired(token)) {
+            throw new BusinessException("Token 已过期");
+        }
+        String userId = jwtUtil.getUserIdFromToken(token);
         return Long.valueOf(userId);
     }
 }

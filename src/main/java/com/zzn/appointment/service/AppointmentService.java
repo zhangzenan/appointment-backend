@@ -44,7 +44,8 @@ public class AppointmentService {
     /**
      * 查询我的预约
      */
-    public List<Appointment> listAppointments(Long userId) {
-        return appointmentMapper.findByUserId(userId);
+    public List<Appointment> listAppointments(Long userId, Integer pageNum, Integer pageSize) {
+        Integer offset= (pageNum - 1) * pageSize;
+        return appointmentMapper.findByUserIdWithPage(userId, offset, pageSize);
     }
 }
